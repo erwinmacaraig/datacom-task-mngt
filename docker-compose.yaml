@@ -1,0 +1,57 @@
+services:
+  datacom_dynamodb_local:
+   command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+   image: "amazon/dynamodb-local:latest"
+   container_name: datacom_dynamodb_local
+   ports:
+     - "8000:8000"
+   networks:
+      - backend
+   volumes:
+     - "./dynamodb:/home/dynamodblocal/data"
+   working_dir: /home/dynamodblocal
+  datacom_express:
+    container_name: datacom_express
+    restart: always
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports: 
+      - "3000:3000"
+    networks:
+      - backend
+    depends_on:
+     - "datacom_dynamodb_local"
+    links: 
+      - datacom_dynamodb_local
+    volumes:
+      - ./server:/opt/app   
+      - /opt/app/node_modules
+    environment:
+     AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
+     AWS_SECRET_ACCESS_KEY: 'DUMMYEXAMPLEKEY'
+     REGION: 'eu-west-1'   
+
+  datacom_react:
+    container_name: datacom_react
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports: 
+      - "80:8081"
+    depends_on:
+      - datacom_express
+    networks:
+      - frontend 
+      - backend
+    links:
+      - datacom_express
+    volumes:
+      - ./frontend:/opt/app
+      - /opt/app/node_modules
+      
+networks:
+  frontend:
+  backend:
+    driver: bridge
+   
