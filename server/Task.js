@@ -2,9 +2,10 @@
 const { dynamo, docClient } = require('./utils');
 
 class Task {
-    constructor(id="", text="", createdOn="", completed=false, completedAt="") {
+    constructor(id="", text="", status="", createdOn="", completed=false, completedAt="0000-00-00") {
         this.id = id;
         this.text = text;
+        this.status = status;
         this.createdOn = createdOn;
         this.completed = completed;
         this.completedAt = completedAt;
@@ -18,6 +19,9 @@ class Task {
             break;
             case 'text':
                 this.text = value;
+            break;
+            case 'status':
+                this.status = value;
             break;
             case 'createdOn':
             this.createdOn = value;
@@ -50,11 +54,13 @@ class Task {
                     taskDetails = {
                         id: item.id.S,
                         task: item.task.S,
+                        status: item.status.S,
                         createdOn: item.createdOn.S,
                         completed: item.completed.S,
                         completedAt: item.completedAt.S
                     };
                     this.text = item.task.S;
+                    this.status = item.status.S;
                     this.createdOn = item.createdOn.S;
                     this.completed = item.completed.S;
                     this.completedAt = item.completedAt.S;
@@ -87,6 +93,7 @@ class Task {
         return {
             id: this.id,
             task: this.text,
+            status: this.status,
             createdOn: this.createdOn,
             completed: this.completed,
             completedAt: this.completedAt
@@ -98,6 +105,7 @@ class Task {
             Item: {
                 id: { S: this.id },
                 task: { S: this.text },
+                status: { S: this.status },
                 createdOn: { S: this.createdOn },
                 completed: { S: this.completed.toString() },
                 completedAt: { S: this.completedAt }
@@ -106,10 +114,8 @@ class Task {
         };
         return new Promise((resolve, reject) => {
             dynamo.putItem(params, (error, data) => {
-                if (error) {
-                    console.log(error.code);                    
-                    reject(error);
-                    
+                if (error) {                                    
+                    reject(error);                    
                 } else {
                     resolve(data);                    
                 }
@@ -128,7 +134,6 @@ class Task {
                 id: this.id 
             }
         };
-        console.log("DELETING", this.id);
         return new Promise((resolve, reject) => {
             docClient.delete(params, (error, data) => {
                 if (error) {                    
