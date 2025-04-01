@@ -6,3 +6,8 @@
 .icon-ops {
     cursor: pointer;
 }
+
+.tdbreak {    
+    width:450px;
+    word-wrap: break-word;
+  }

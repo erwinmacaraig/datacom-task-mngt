@@ -62,22 +62,14 @@ function TaskStatus({id, status}) {
             console.log(e);
             setStatusUpdateSuccess(false);
             setStatusText('Status update failed.');
-        }) 
-        
-
-            // setStatusUpdated(true);
-            // setStatusText('Status update failed.');
-            // setTimeout(() => {
-            //     console.log();
-            //     setStatusUpdated(false);
-            // }, 5000)
+        })             
     }
     return (
         <div className="datacom-select">
             <select className={`${statusUpdated ? "task-status": "" }`}  defaultValue={statusState} id={id} onChange={handleStatusChange}>
                 { 
                   statuses.map((stat) => {
-                        return <option value={stat}>{stat}</option>
+                        return <option key={`${stat}-${id}`} value={stat}>{stat}</option>
                     })
                 }
             </select>            

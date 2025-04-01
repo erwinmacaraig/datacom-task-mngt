@@ -131,15 +131,21 @@ class Task {
         const params = {
             TableName: "Tasks",
             Key: {
-                id: this.id 
+                id: { S: this.id }
             }
         };
-        return new Promise((resolve, reject) => {
-            docClient.delete(params, (error, data) => {
+        return new Promise((resolve, reject) => {            
+            dynamo.deleteItem(params, (error, data) => {
                 if (error) {                    
                     reject(error)
                     return;
                 }
+                console.log(data);
+                if ('ConsumedCapacity' in data) {
+                    reject({'message': "There was an error deleting the task"});
+                    return;
+                }
+                
                 resolve(data);
             });
         })

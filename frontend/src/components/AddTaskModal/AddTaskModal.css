@@ -1,0 +1,36 @@
+.btn-addtask-modal {
+    text-align: right;
+}
+.btn-addtask-modal button {
+    margin-right: 5px;
+    margin-left: 2px;
+}
+textarea {
+    resize: none;
+    overflow: auto;
+}
+
+.addTaskBtn {
+    font-weight: 700;
+    font-size: 14px;
+    border: 0px;
+    border-radius: 500px;
+    cursor: pointer;
+    user-select: none;
+    background-color: #41aa41;
+    min-block-size: 40px;
+    padding-block: 8px;
+    padding-inline: 32px;
+    margin-right: 20px;    
+    float: right;
+}
+
+.add-task-btn-container {    
+    background-color: #d7cece;
+    height: 45px;
+    width: 100%;
+    max-width: 1280px;
+    padding: 24px; 
+    margin: 0 auto;
+    
+}
