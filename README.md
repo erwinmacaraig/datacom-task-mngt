@@ -11,14 +11,18 @@ Dockerized implementation of a web application done with DynamoDB Local, Express
 docker compose build && docker compose up -d 
 ```
 to build the images and run the services in a detached mode.
+
 4. Make sure all containers are running. Run 
 ```
 docker ps
 ``` 
 to list running containers. 
-5. [The web app is http://localhost](http://localhost) 
-6. The API end points are at [http://localhost:3000](http://localhost:3000) and you can check the [documentation here](http://localhost:3000/docs)
-7. Run 
+
+5. The web app is at [http://localhost](http://localhost)
+  
+7. The API end points are at [http://localhost:3000](http://localhost:3000) and you can check the [documentation here](http://localhost:3000/docs)
+   
+8. Run 
 ```
 docker compose down --remove-orphans
 ```
