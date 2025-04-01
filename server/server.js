@@ -143,7 +143,7 @@ app.get('/tasks', async (req, res) => {
         let taskList = [];
         resultSet.Items.forEach((item) => {
             taskList.push({
-                id: item.id.S,
+                id: Number(item.id.S),
                 task: item.task.S,
                 status: item.status.S,
                 createdOn: item.createdOn.S,
@@ -151,6 +151,10 @@ app.get('/tasks', async (req, res) => {
                 completedAt: item.completedAt.S 
             });
         });
+        taskList.sort(function(a, b) {
+           if (a.id < b.id) { return -1; }
+           if (a.id > b.id) { return 1; }
+        })
         res.status(200).json(taskList);
         
     } catch(error) {
@@ -303,19 +307,19 @@ app.put('/tasks/:id', checkRequestBody, async (req, res) => {
         });
     }
     
-    if ('text' in req.body) {
+    if ('text' in req.body && req.body.text.trim().length > 0) {
         task.set('text', req.body.text);
     }
-    if ('status' in req.body) {
+    if ('status' in req.body && req.body.status.trim().length > 0) {
         task.set('status', req.body.status)
     }
-    if ('createdOn' in req.body) {
+    if ('createdOn' in req.body && req.body.createdOn.trim().length > 0) {
         task.set('createdOn', req.body.createdOn)
     }
-    if ('completed' in req.body) {
+    if ('completed' in req.body && typeof req.body.completed == 'boolean') {
         task.set('completed', req.body.completed)
     }
-    if ('completedAt' in req.body) {
+    if ('completedAt' in req.body && req.body.completedAt.trim().length > 0) {
         task.set('completedAt', req.body.completedAt)
     }
     try {

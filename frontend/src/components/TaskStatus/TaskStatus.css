@@ -1,0 +1,27 @@
+.datacom-select {
+    min-width: 70px;
+}
+
+.datacom-select select {
+    width: 70%;
+    padding: 0.57em 4em 0.675em 1em;
+    background-color: #fff;
+    border: 1px solid #caced1;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #554d4d;
+}
+
+.status-text {
+    font-size:x-small;    
+    display: none;
+}
+.status-text-success {
+    color: #03b403;
+}
+.status-text-failed {
+    color: #e90606;
+}
+.show-status-text {
+    display: block;
+}

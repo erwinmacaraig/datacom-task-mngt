@@ -1,0 +1,13 @@
+.row {
+    height: 56px;
+    color: rgb(179, 179, 179);
+}
+
+.icon-ops {
+    cursor: pointer;
+}
+
+.tdbreak {    
+    width:450px;
+    word-wrap: break-word;
+  }

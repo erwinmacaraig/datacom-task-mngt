@@ -1,0 +1,28 @@
+.container {
+    max-width: 1280px;
+    padding: 24px;
+    margin: 0 auto;
+  }
+  
+  .table {
+    width: 100%;
+    font-size: 14px;
+    border-collapse: collapse;
+  }
+  
+  .table th {
+    
+    color: rgb(179, 179, 179);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0;
+  }
+  
+  .table thead tr {
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: 36px;
+  }
+  
+  .table tbody tr:first td {
+    padding-top: 16px;
+  }
