@@ -143,7 +143,7 @@ app.get('/tasks', async (req, res) => {
         let taskList = [];
         resultSet.Items.forEach((item) => {
             taskList.push({
-                id: item.id.S,
+                id: Number(item.id.S),
                 task: item.task.S,
                 status: item.status.S,
                 createdOn: item.createdOn.S,
@@ -151,6 +151,10 @@ app.get('/tasks', async (req, res) => {
                 completedAt: item.completedAt.S 
             });
         });
+        taskList.sort(function(a, b) {
+           if (a.id < b.id) { return -1; }
+           if (a.id > b.id) { return 1; }
+        })
         res.status(200).json(taskList);
         
     } catch(error) {
